@@ -1,0 +1,36 @@
+{
+  "steps": [
+    {
+      "name": "string",
+      "instruction": "string",
+      "ingredients": [
+        {
+          "food": {
+            "name": "string",
+            "plural_name": "string"
+          },
+          "unit": {
+            "name": "string",
+            "plural_name": "string",
+            "description": "string",
+            "base_unit": "string",
+            "open_data_slug": "string"
+          },
+          "amount": "string",
+          "note": "string",
+          "order": 0,
+          "is_header": true,
+          "no_amount": true
+        }
+      ],
+      "time": 0,
+      "order": 0,
+      "show_as_header": true,
+      "file": {
+        "name": "string"
+      },
+      "step_recipe": 0,
+      "show_ingredients_table": true
+    }
+  ]
+}

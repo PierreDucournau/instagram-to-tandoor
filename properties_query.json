@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "property_amount": "string",
+      "property_type": {
+        "id": 0,
+        "name": "string",
+        "unit": "string",
+        "description": "string",
+        "order": 0,
+        "open_data_slug": "string",
+        "fdc_id": 0
+      }
+    }
+  ]
+}
