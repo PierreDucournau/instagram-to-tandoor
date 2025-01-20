@@ -1,37 +1,37 @@
 {
-  "name": "Austernpilze in Sojaso\u00dfe",
-  "description": "Ein einfaches und herzhaftes Gericht mit Austernpilzen, das perfekt f\u00fcr eine schnelle Mahlzeit ist. Die Pilze werden in einer aromatischen So\u00dfe aus Sojaso\u00dfe, braunem Zucker und Gew\u00fcrzen serviert.",
+  "name": "Veganer Burrito mit Beyond Hack",
+  "description": "Ein proteinreicher Burrito mit Beyond Hack, perfekt zum Meal-Preppen und anpassbar f\u00fcr sch\u00e4rfere Geschm\u00e4cker.",
   "keywords": [
     {
-      "name": "Austernpilze",
-      "description": "Fleisch\u00e4hnliche Pilze, die auch als Kalbsfleischpilze bekannt sind und sich gut f\u00fcr herzhafte Gerichte eignen."
+      "name": "Beyond Hack",
+      "description": "Pflanzliche Hack-Alternative von Beyond Meat, ideal f\u00fcr vegane Gerichte."
     },
     {
-      "name": "Sojaso\u00dfe",
-      "description": "Eine salzige, umami-reiche So\u00dfe, die h\u00e4ufig in der asiatischen K\u00fcche verwendet wird."
+      "name": "Proteinreich",
+      "description": "Rezept mit hohem Eiwei\u00dfgehalt, perfekt f\u00fcr Fitness-Enthusiasten."
     },
     {
-      "name": "einfach",
-      "description": "Ein Gericht, das leicht zuzubereiten ist und f\u00fcr Kochanf\u00e4nger geeignet ist."
+      "name": "Meal-Prep",
+      "description": "Geeignet f\u00fcr die Vorbereitung von Mahlzeiten im Voraus."
     },
     {
-      "name": "scharf",
-      "description": "Ein Hinweis auf die Verwendung von Chilischoten, die dem Gericht eine w\u00fcrzige Note verleihen."
+      "name": "Vegan",
+      "description": "Rezept ist vollst\u00e4ndig pflanzlich und frei von tierischen Produkten."
     },
     {
-      "name": "vegetarisch",
-      "description": "Ein Gericht, das keine tierischen Produkte enth\u00e4lt und f\u00fcr Vegetarier geeignet ist."
+      "name": "Burrito",
+      "description": "Beliebte mexikanische Speise, die mit verschiedenen Zutaten gef\u00fcllt werden kann."
     }
   ],
   "steps": [
     {
-      "name": "1. Step",
-      "instruction": "Die Austernpilze in mundgerechte St\u00fccke zupfen. 1 EL \u00d6l in einer gro\u00dfen Pfanne bei hoher Hitze erhitzen und die Pilze darin scharf anbraten, bis sie leicht gebr\u00e4unt sind und das austretende Wasser vollst\u00e4ndig verdampft ist. Die Pilze aus der Pfanne nehmen und beiseitestellen.",
+      "name": "1.",
+      "instruction": "Das Beyond Hack von Beyond Meat nach Packungsanweisung in einer Pfanne ohne \u00d6l anbraten.",
       "ingredients": [
         {
           "food": {
-            "name": "Austernpilze",
-            "plural_name": "Austernpilze"
+            "name": "Beyond Hack",
+            "plural_name": "Beyond Hacks"
           },
           "unit": {
             "name": "g",
@@ -40,292 +40,200 @@
             "base_unit": "g",
             "open_data_slug": "gramm"
           },
-          "amount": "400",
-          "note": "",
+          "amount": "250",
+          "note": "von Beyond Meat",
           "order": 0,
-          "is_header": true,
+          "is_header": false,
+          "no_amount": true
+        },
+        {
+          "food": {
+            "name": "D\u00fcr\u00fcm",
+            "plural_name": "D\u00fcr\u00fcms"
+          },
+          "unit": {
+            "name": "St\u00fcck",
+            "plural_name": "St\u00fccke",
+            "description": "Einheit f\u00fcr D\u00fcr\u00fcm",
+            "base_unit": "St\u00fcck",
+            "open_data_slug": "stueck"
+          },
+          "amount": "1",
+          "note": "f\u00fcr die Tomatensauce",
+          "order": 1,
+          "is_header": false,
           "no_amount": false
         },
         {
           "food": {
-            "name": "\u00d6l",
-            "plural_name": "\u00d6le"
+            "name": "Tomatensauce",
+            "plural_name": "Tomatensaucen"
           },
           "unit": {
-            "name": "EL",
-            "plural_name": "EL",
+            "name": "El",
+            "plural_name": "El",
             "description": "Essl\u00f6ffel",
-            "base_unit": "EL",
+            "base_unit": "El",
+            "open_data_slug": "essloeffel"
+          },
+          "amount": "3",
+          "note": "",
+          "order": 2,
+          "is_header": false,
+          "no_amount": false
+        }
+      ],
+      "time": 0,
+      "order": 0,
+      "show_as_header": true,
+      "show_ingredients_table": true
+    },
+    {
+      "name": "2.",
+      "instruction": "Die Tomatensauce auf einem D\u00fcr\u00fcm verteilen.",
+      "ingredients": [
+        {
+          "food": {
+            "name": "D\u00fcr\u00fcm",
+            "plural_name": "D\u00fcr\u00fcms"
+          },
+          "unit": {
+            "name": "St\u00fcck",
+            "plural_name": "St\u00fccke",
+            "description": "Ein einzelnes St\u00fcck eines Lebensmittels.",
+            "base_unit": "St\u00fcck",
+            "open_data_slug": "stueck"
+          },
+          "amount": "1",
+          "note": "",
+          "order": 0,
+          "is_header": false,
+          "no_amount": false
+        },
+        {
+          "food": {
+            "name": "Tomatensauce",
+            "plural_name": "Tomatensaucen"
+          },
+          "unit": {
+            "name": "Essl\u00f6ffel",
+            "plural_name": "Essl\u00f6ffel",
+            "description": "Ein Essl\u00f6ffel ist ein Volumenma\u00df f\u00fcr Fl\u00fcssigkeiten oder feste Stoffe.",
+            "base_unit": "ml",
+            "open_data_slug": "essloeffel"
+          },
+          "amount": "3",
+          "note": "",
+          "order": 1,
+          "is_header": false,
+          "no_amount": false
+        }
+      ],
+      "time": 0,
+      "order": 0,
+      "show_as_header": true,
+      "show_ingredients_table": true
+    },
+    {
+      "name": "3.",
+      "instruction": "Die Tomatensauce auf einem D\u00fcr\u00fcm verteilen.",
+      "ingredients": [
+        {
+          "food": {
+            "name": "D\u00fcr\u00fcm",
+            "plural_name": "D\u00fcr\u00fcms"
+          },
+          "unit": {
+            "name": "St\u00fcck",
+            "plural_name": "St\u00fccke",
+            "description": "Einzelne Einheiten eines Lebensmittels.",
+            "base_unit": "St\u00fcck",
+            "open_data_slug": "stueck"
+          },
+          "amount": "1",
+          "note": "",
+          "order": 0,
+          "is_header": false,
+          "no_amount": false
+        },
+        {
+          "food": {
+            "name": "Tomatensauce",
+            "plural_name": "Tomatensaucen"
+          },
+          "unit": {
+            "name": "Essl\u00f6ffel",
+            "plural_name": "Essl\u00f6ffel",
+            "description": "Ein Ma\u00df f\u00fcr Fl\u00fcssigkeiten oder feste Stoffe.",
+            "base_unit": "Essl\u00f6ffel",
+            "open_data_slug": "essloeffel"
+          },
+          "amount": "3",
+          "note": "",
+          "order": 1,
+          "is_header": false,
+          "no_amount": false
+        }
+      ],
+      "time": 0,
+      "order": 0,
+      "show_as_header": true,
+      "show_ingredients_table": true
+    },
+    {
+      "name": "4.",
+      "instruction": "Alle anderen Zutaten erg\u00e4nzen und den Burrito zusammenrollen.",
+      "ingredients": [
+        {
+          "food": {
+            "name": "Salatblatt",
+            "plural_name": "Salatbl\u00e4tter"
+          },
+          "unit": {
+            "name": "St\u00fcck",
+            "plural_name": "St\u00fccke",
+            "description": "Einzelne Einheiten von Lebensmitteln.",
+            "base_unit": "St\u00fcck",
+            "open_data_slug": "stueck"
+          },
+          "amount": "2",
+          "note": "",
+          "order": 0,
+          "is_header": false,
+          "no_amount": false
+        },
+        {
+          "food": {
+            "name": "Petersilie",
+            "plural_name": "Petersilien"
+          },
+          "unit": {
+            "name": "Essl\u00f6ffel",
+            "plural_name": "Essl\u00f6ffel",
+            "description": "Ein Ma\u00df f\u00fcr Fl\u00fcssigkeiten oder feste Stoffe.",
+            "base_unit": "Essl\u00f6ffel",
             "open_data_slug": "essloeffel"
           },
           "amount": "1",
           "note": "",
           "order": 1,
-          "is_header": true,
-          "no_amount": false
-        }
-      ],
-      "time": 0,
-      "order": 0,
-      "show_as_header": true,
-      "show_ingredients_table": true
-    },
-    {
-      "name": "2. Step",
-      "instruction": "In derselben Pfanne 2 EL \u00d6l bei mittlerer Hitze erhitzen. Die Chilischoten hinzuf\u00fcgen und etwa 30 Sekunden anr\u00f6sten, bis sie duften. Knoblauch und Ingwer dazugeben und weitere 30 Sekunden braten.",
-      "ingredients": [
-        {
-          "food": {
-            "name": "\u00d6l",
-            "plural_name": "\u00d6le"
-          },
-          "unit": {
-            "name": "EL",
-            "plural_name": "EL",
-            "description": "Essl\u00f6ffel",
-            "base_unit": "ml",
-            "open_data_slug": "tablespoon"
-          },
-          "amount": "2",
-          "note": "",
-          "order": 0,
           "is_header": false,
           "no_amount": false
         },
         {
           "food": {
-            "name": "getrocknete rote Chilischoten",
-            "plural_name": "getrocknete rote Chilischoten"
+            "name": "Minze",
+            "plural_name": "Minzen"
           },
           "unit": {
-            "name": "St\u00fcck",
-            "plural_name": "St\u00fccke",
-            "description": "Einzelne Chilischoten",
-            "base_unit": "st\u00fcck",
-            "open_data_slug": "dried-red-chilies"
-          },
-          "amount": "2",
-          "note": "leicht angedr\u00fcckt",
-          "order": 1,
-          "is_header": false,
-          "no_amount": false
-        },
-        {
-          "food": {
-            "name": "Knoblauchzehen",
-            "plural_name": "Knoblauchzehen"
-          },
-          "unit": {
-            "name": "St\u00fcck",
-            "plural_name": "St\u00fccke",
-            "description": "Einzelne Knoblauchzehen",
-            "base_unit": "st\u00fcck",
-            "open_data_slug": "garlic-cloves"
-          },
-          "amount": "2",
-          "note": "fein gehackt",
-          "order": 2,
-          "is_header": false,
-          "no_amount": false
-        }
-      ],
-      "time": 0,
-      "order": 0,
-      "show_as_header": true,
-      "show_ingredients_table": true
-    },
-    {
-      "name": "3. Step",
-      "instruction": "Den wei\u00dfen Teil der Fr\u00fchlingszwiebeln (geviertelt) in die Pfanne geben und kurz anschwitzen, bis sie leicht weich sind.",
-      "ingredients": [
-        {
-          "food": {
-            "name": "Fr\u00fchlingszwiebel",
-            "plural_name": "Fr\u00fchlingszwiebeln"
-          },
-          "unit": {
-            "name": "St\u00fcck",
-            "plural_name": "St\u00fccke",
-            "description": "Einzelne Einheiten von Fr\u00fchlingszwiebeln",
-            "base_unit": "St\u00fcck",
-            "open_data_slug": "fruehlingszwiebel"
-          },
-          "amount": "3",
-          "note": "wei\u00dfer Teil, geviertelt",
-          "order": 0,
-          "is_header": true,
-          "no_amount": false
-        }
-      ],
-      "time": 0,
-      "order": 0,
-      "show_as_header": true,
-      "show_ingredients_table": true
-    },
-    {
-      "name": "4. Step",
-      "instruction": "In einer kleinen Sch\u00fcssel Sojaso\u00dfe, braunen Zucker, Wasser, Hoisin-So\u00dfe und Maisst\u00e4rke gut verr\u00fchren.",
-      "ingredients": [
-        {
-          "food": {
-            "name": "Sojaso\u00dfe",
-            "plural_name": "Sojaso\u00dfen"
-          },
-          "unit": {
-            "name": "EL",
-            "plural_name": "EL",
-            "description": "Essl\u00f6ffel",
-            "base_unit": "ml",
-            "open_data_slug": "tablespoon"
-          },
-          "amount": "4",
-          "note": "",
-          "order": 0,
-          "is_header": true,
-          "no_amount": false
-        },
-        {
-          "food": {
-            "name": "brauner Zucker",
-            "plural_name": "braune Zuckersorten"
-          },
-          "unit": {
-            "name": "EL",
-            "plural_name": "EL",
-            "description": "Essl\u00f6ffel",
-            "base_unit": "g",
-            "open_data_slug": "tablespoon"
+            "name": "Essl\u00f6ffel",
+            "plural_name": "Essl\u00f6ffel",
+            "description": "Ein Ma\u00df f\u00fcr Fl\u00fcssigkeiten oder feste Stoffe.",
+            "base_unit": "Essl\u00f6ffel",
+            "open_data_slug": "essloeffel"
           },
           "amount": "1",
-          "note": "(oder andere S\u00fc\u00dfe)",
-          "order": 1,
-          "is_header": true,
-          "no_amount": false
-        },
-        {
-          "food": {
-            "name": "Wasser",
-            "plural_name": "W\u00e4sser"
-          },
-          "unit": {
-            "name": "ml",
-            "plural_name": "ml",
-            "description": "Milliliter",
-            "base_unit": "ml",
-            "open_data_slug": "milliliter"
-          },
-          "amount": "150",
-          "note": "(mehr wenn n\u00f6tig)",
-          "order": 2,
-          "is_header": true,
-          "no_amount": false
-        }
-      ],
-      "time": 0,
-      "order": 0,
-      "show_as_header": true,
-      "show_ingredients_table": true
-    },
-    {
-      "name": "5. Step",
-      "instruction": "Die gebratenen Austernpilze und den gr\u00fcnen Teil der Fr\u00fchlingszwiebeln (in feine Streifen geschnitten) zur So\u00dfe geben. Alles gut vermengen, bis die Pilze und Fr\u00fchlingszwiebeln gleichm\u00e4\u00dfig von der So\u00dfe \u00fcberzogen sind.",
-      "ingredients": [
-        {
-          "food": {
-            "name": "Austernpilze",
-            "plural_name": "Austernpilze"
-          },
-          "unit": {
-            "name": "g",
-            "plural_name": "g",
-            "description": "Gramm",
-            "base_unit": "g",
-            "open_data_slug": "gramm"
-          },
-          "amount": "400",
           "note": "",
-          "order": 0,
-          "is_header": false,
-          "no_amount": false
-        },
-        {
-          "food": {
-            "name": "Fr\u00fchlingszwiebeln",
-            "plural_name": "Fr\u00fchlingszwiebeln"
-          },
-          "unit": {
-            "name": "St\u00fcck",
-            "plural_name": "St\u00fccke",
-            "description": "Einheit f\u00fcr Fr\u00fchlingszwiebeln",
-            "base_unit": "St\u00fcck",
-            "open_data_slug": "stueck"
-          },
-          "amount": "3",
-          "note": "in feine Streifen geschnitten",
-          "order": 1,
-          "is_header": false,
-          "no_amount": false
-        }
-      ],
-      "time": 0,
-      "order": 0,
-      "show_as_header": true,
-      "show_ingredients_table": true
-    },
-    {
-      "name": "6. Step",
-      "instruction": "Die Austernpilze mit So\u00dfe auf Tellern anrichten. Mit ger\u00f6steten Sesamsamen garnieren und zusammen mit gekochtem Reis servieren.",
-      "ingredients": [
-        {
-          "food": {
-            "name": "Austernpilze",
-            "plural_name": "Austernpilze"
-          },
-          "unit": {
-            "name": "g",
-            "plural_name": "g",
-            "description": "Gramm",
-            "base_unit": "g",
-            "open_data_slug": "gramm"
-          },
-          "amount": "400",
-          "note": "",
-          "order": 0,
-          "is_header": false,
-          "no_amount": false
-        },
-        {
-          "food": {
-            "name": "Sesamsamen",
-            "plural_name": "Sesamsamen"
-          },
-          "unit": {
-            "name": "TL",
-            "plural_name": "TL",
-            "description": "Teel\u00f6ffel",
-            "base_unit": "TL",
-            "open_data_slug": "teeloeffel"
-          },
-          "amount": "1",
-          "note": "ger\u00f6stete",
-          "order": 1,
-          "is_header": false,
-          "no_amount": false
-        },
-        {
-          "food": {
-            "name": "Reis",
-            "plural_name": "Reis"
-          },
-          "unit": {
-            "name": "Portion",
-            "plural_name": "Portionen",
-            "description": "Portionen gekochter Reis",
-            "base_unit": "Portion",
-            "open_data_slug": "portion"
-          },
-          "amount": "2",
-          "note": "gekocht",
           "order": 2,
           "is_header": false,
           "no_amount": false
@@ -337,11 +245,11 @@
       "show_ingredients_table": true
     }
   ],
-  "servings": 2,
-  "servings_text": "Portionen: 2",
-  "working_time": 30,
+  "servings": 1,
+  "servings_text": "1 Burrito",
+  "working_time": 0,
   "waiting_time": 0,
-  "source_url": "https://www.instagram.com/p/DEW43wKI8wr/",
+  "source_url": "https://www.instagram.com/p/DFA0dLooeTZ/",
   "internal": true,
   "show_ingredient_overview": true
 }
