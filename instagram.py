@@ -1,10 +1,21 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from selenium.webdriver.firefox.options import Options
 import time
 
 
 def get_caption_from_post(url):
-    browser = webdriver.Firefox()
+    """
+    Extracts the caption from an Instagram post given its URL.
+    Args:
+        url (str): The URL of the Instagram post.
+    Returns:
+        str: The caption of the Instagram post if found, otherwise None.
+    """
+    
+    options = Options()
+    options.add_argument('--headless')
+    browser = webdriver.Firefox(options=options)
     browser.get(url)
     time.sleep(5) 
     source = browser.page_source

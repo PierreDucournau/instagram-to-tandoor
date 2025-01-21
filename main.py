@@ -8,6 +8,26 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def main(url):
+    """
+    Main function to process an Instagram post URL and extract recipe information.
+    Args:
+        url (str): The URL of the Instagram post containing the recipe.
+    The function performs the following steps:
+    1. Extracts the caption from the Instagram post.
+    2. Determines the number of steps in the recipe from the caption.
+    3. Initializes a JSON structure to store the recipe information.
+    4. Uses a duck ai to extract and populate various parts of the recipe:
+        - Recipe name and description
+        - Instructions and ingredients for each step
+        - Servings information
+        - Nutrition and other metadata
+    5. Updates the JSON structure with the extracted information.
+    6. Saves the final JSON structure to a file named 'output.json'.
+    7. Sends the JSON structure to the Tandoor API.
+    Returns:
+        None
+    """
+    
     caption = get_caption_from_post(url)
     if caption:
         number_of_steps = get_number_of_steps(caption)

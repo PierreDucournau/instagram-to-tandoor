@@ -3,12 +3,26 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
 import os
 import json
 
 def prompt_chatgpt(caption, part, isStep=False, step_number=None):
-    browser = webdriver.Firefox()
+    """
+    Interacts with the Duck.ai website to generate a JSON response based on the provided caption and part.
+    Args:
+        caption (str): The caption or data to be used for generating the JSON response.
+        part (str): The part of the JSON document to be filled out.
+        isStep (bool, optional): Indicates whether the prompt is for a specific step in a recipe. Defaults to False.
+        step_number (int, optional): The step number to be completed if isStep is True. Defaults to None.
+    Returns:
+        dict or None: The JSON response from Duck.ai if successful, otherwise None.
+    """
+
+    options = Options()
+    options.add_argument('--headless')
+    browser = webdriver.Firefox(options=options)
     browser.get("https://duck.ai/")
     
     try:
@@ -63,7 +77,19 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
         browser.close()
 
 def get_number_of_steps(caption):
-    browser = webdriver.Firefox()
+    """
+    Extracts the number of steps from an Instagram recipe caption using the Duck.ai website.
+    Args:
+        caption (str): The Instagram recipe caption to analyze.
+    Returns:
+        int: The number of steps in the recipe caption if successfully extracted, otherwise None.
+    Raises:
+        Exception: If an error occurs during the web scraping process.
+    """
+    
+    options = Options()
+    options.add_argument('--headless')
+    browser = webdriver.Firefox(options=options)
     browser.get("https://duck.ai/")
     
     try:
