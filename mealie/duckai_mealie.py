@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 import os
 import json
 
-def prompt_chatgpt(caption, part, isStep=False, step_number=None):
+def prompt_chatgpt(caption, part, mode="", step_number=None):
     """
     Interacts with the Duck.ai website to generate a JSON response based on the provided caption and part.
     Args:
@@ -19,10 +19,12 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
     Returns:
         dict or None: The JSON response from Duck.ai if successful, otherwise None.
     """
+    
+    print("Prompting Duck AI and waiting for response...")
 
     options = Options()
     options.add_argument('--headless')
-    browser = webdriver.Firefox(options=options)
+    browser = webdriver.Firefox() # options=options
     browser.get("https://duck.ai/")
     
     try:
@@ -47,10 +49,18 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
             EC.presence_of_element_located((By.XPATH, "//textarea[@name='user-prompt']"))
         )
         
-        if isStep:
-            prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only complete the specified sections of the document. Only complete step {step_number} of the recipe. If the step has more then 3 ingredients, only complete the first 3 and finish the json object. The name of the step should be the step number e.g. 'name': '1.'. Only include the current instruction description in the instruction field. The amount value of the ingredient can only be a whole number, please round up if the amount is a decimal."
-        else:
-            prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only complete the specified sections of the document."
+        match mode:
+            case "name":
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only generate a short name for the recipe."
+            case "ingredients":
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Append the list for each ingredient of the recipe."
+            case "servings":  
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only fill out the servings information."
+            case "step":
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only fill out for the {step_number}. The 'summary' of the step should just be the step number e.g. 'x.'. The 'text' should descripe what to do in this step. Only complete the specified sections of the document."
+            case "":
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only complete the specified sections of the document."
+        
         textarea.send_keys(prompt)
         textarea.send_keys(Keys.RETURN)
         
@@ -75,7 +85,7 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
         return None
     finally:
         browser.close()
-
+    
 def get_number_of_steps(caption):
     """
     Extracts the number of steps from an Instagram recipe caption using the Duck.ai website.
@@ -86,6 +96,8 @@ def get_number_of_steps(caption):
     Raises:
         Exception: If an error occurs during the web scraping process.
     """
+    
+    print("Prompting Duck AI and waiting for response...")
     
     options = Options()
     options.add_argument('--headless')

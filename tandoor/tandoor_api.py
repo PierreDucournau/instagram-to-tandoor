@@ -15,6 +15,6 @@ def send_to_tandoor(data):
     Raises:
         requests.exceptions.RequestException: If there is an issue with the HTTP request.
     """
-    headers = {'Authorization': f'Bearer {os.getenv("TOKEN")}', 'Content-Type': 'application/json'}
-    answer = request.post(f'{os.getenv("BASE_URL")}/api/recipe/', json=data, headers=headers)
+    headers = {'Authorization': f'Bearer {os.getenv("TOKEN_TANDOOR")}', 'Content-Type': 'application/json'}
+    answer = request.post(f'{os.getenv("BASE_URL_TANDOOR")}/api/recipe/', json=data, headers=headers)
     print(json.dumps(answer.json(), indent=2))

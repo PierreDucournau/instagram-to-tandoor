@@ -13,6 +13,8 @@ def get_caption_from_post(url):
         str: The caption of the Instagram post if found, otherwise None.
     """
     
+    print("Extracting caption from Instagram post")
+    
     options = Options()
     options.add_argument('--headless')
     browser = webdriver.Firefox(options=options)
