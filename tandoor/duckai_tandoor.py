@@ -57,10 +57,9 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
         textarea.send_keys(Keys.RETURN)
         
         # Wait for the "Send" button to be enabled        
-        WebDriverWait(browser, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@aria-label='Senden' and @disabled]")))
-        
+        WebDriverWait(browser, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and @disabled]")))        
         # Wait for the "Stopp" button to disappear
-        WebDriverWait(browser, 60).until_not(EC.presence_of_element_located((By.XPATH, "//button[@aria-label='Stopp']")))
+        WebDriverWait(browser, 60).until_not(EC.presence_of_element_located((By.XPATH, "//button//rect[@width='10' and @height='10']")))
         
         # Extract the JSON response from the page source
         response = browser.page_source
@@ -127,7 +126,6 @@ def get_number_of_steps(caption):
         WebDriverWait(browser, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and @disabled]")))        
         # Wait for the "Stopp" button to disappear
         WebDriverWait(browser, 60).until_not(EC.presence_of_element_located((By.XPATH, "//button//rect[@width='10' and @height='10']")))
-
         
         # Extract the response from the page source
         response = browser.page_source
