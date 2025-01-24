@@ -10,21 +10,23 @@ import json
 
 def prompt_chatgpt(caption, part, mode="", step_number=None):
     """
-    Interacts with the Duck.ai website to generate a JSON response based on the provided caption and part.
+    Prompts Duck AI with a specific task and retrieves the JSON response.
     Args:
-        caption (str): The caption or data to be used for generating the JSON response.
-        part (str): The part of the JSON document to be filled out.
-        isStep (bool, optional): Indicates whether the prompt is for a specific step in a recipe. Defaults to False.
-        step_number (int, optional): The step number to be completed if isStep is True. Defaults to None.
+        caption (str): The data to be used in the prompt.
+        part (str): The JSON document part to be filled out.
+        mode (str, optional): The mode of the prompt, which determines the specific task. 
+                              Options are "info", "ingredients", "name", "nutrition", "instructions", or "".
+                              Defaults to "".
+        step_number (int, optional): An optional step number for additional context. Defaults to None.
     Returns:
-        dict or None: The JSON response from Duck.ai if successful, otherwise None.
+        dict or None: The JSON response from Duck AI if successful, otherwise None.
     """
     
     print("Prompting Duck AI and waiting for response...")
 
     options = Options()
     options.add_argument('--headless')
-    browser = webdriver.Firefox() # options=options
+    browser = webdriver.Firefox(options=options)
     browser.get("https://duck.ai/")
     
     try:
@@ -50,14 +52,16 @@ def prompt_chatgpt(caption, part, mode="", step_number=None):
         )
         
         match mode:
-            case "name":
-                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only generate a short name for the recipe."
+            case "info":
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only fill out author, description, recipeYield, prepTime and cooktime. The cooktime and pretime should have the format e.g. PT1H for one hour or PT15M for 15 Minutes."
             case "ingredients":
-                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Append the list for each ingredient of the recipe."
-            case "servings":  
-                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only fill out the servings information."
-            case "step":
-                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only fill out for the {step_number}. The 'summary' of the step should just be the step number e.g. 'x.'. The 'text' should descripe what to do in this step. Only complete the specified sections of the document."
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Append the ingredients to the 'recipeIngredient' list. One ingredient per line."
+            case "name":  
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Keep the name of the recipe short."
+            case "nutrition":
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only fill out calories and fatContent with a string."
+            case "instructions":
+                prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Write the instruction as one long string. No string seperation, just one long text!. Dont add ingredients here. JSON FORMAT IN CODE WINDOW!"
             case "":
                 prompt = f"Write your Response in the languge {os.getenv('LANGUAGE_CODE')}. Please fill out this JSON document {part} using the following data: {caption}. Only complete the specified sections of the document."
         
@@ -79,80 +83,6 @@ def prompt_chatgpt(caption, part, mode="", step_number=None):
             return json.loads(json_response)
         else:
             return None
-        
-    except Exception as e:
-        print("An error occurred:", e)
-        return None
-    finally:
-        browser.close()
-    
-def get_number_of_steps(caption):
-    """
-    Extracts the number of steps from an Instagram recipe caption using the Duck.ai website.
-    Args:
-        caption (str): The Instagram recipe caption to analyze.
-    Returns:
-        int: The number of steps in the recipe caption if successfully extracted, otherwise None.
-    Raises:
-        Exception: If an error occurs during the web scraping process.
-    """
-    
-    print("Prompting Duck AI and waiting for response...")
-    
-    options = Options()
-    options.add_argument('--headless')
-    browser = webdriver.Firefox(options=options)
-    browser.get("https://duck.ai/")
-    
-    try:
-        # click through the initial steps
-
-        start_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[2]/div/button"))
-        )
-        start_button.click()
-        
-        continue_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/button"))
-        )
-        continue_button.click()
-        
-        agree_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[4]/div/div[2]/button"))
-        )
-        agree_button.click()
-        
-        # Wait for the textarea and enter the prompt
-        textarea = WebDriverWait(browser, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//textarea[@name='user-prompt']"))
-        )
-        
-        prompt = f"How many steps are in the following Instagram recipe caption? Please return only a number: {caption}"
-        textarea.send_keys(prompt)
-        textarea.send_keys(Keys.RETURN)
-        
-        # Wait for the "Send" button to be enabled        
-        WebDriverWait(browser, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@aria-label='Senden' and @disabled]")))
-        
-        # Wait for the "Stopp" button to disappear
-        WebDriverWait(browser, 60).until_not(EC.presence_of_element_located((By.XPATH, "//button[@aria-label='Stopp']")))
-        
-        # Extract the response from the page source
-        response = browser.page_source
-        soup = BeautifulSoup(response, 'html.parser')
-        div_with_heading = soup.find('div', {'heading': 'GPT-4o mini'})
-        if div_with_heading:
-            number_div = div_with_heading.find('div', {'class': 'VrBPSncUavA1d7C9kAc5'})
-            if number_div:
-                paragraph = number_div.find('p')
-                if paragraph:
-                    try:
-                        number_of_steps = int(paragraph.get_text().strip())
-                        return number_of_steps
-                    except ValueError:
-                        print("An error occurred: The extracted text is not a valid number.")
-                        return None
-        return None
         
     except Exception as e:
         print("An error occurred:", e)

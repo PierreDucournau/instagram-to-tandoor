@@ -61,6 +61,10 @@ You can retrieve your tandoor token by
 2. Creating a new api token with a name of your choice
 3. Copy the token and add it to the `.env` file
 
+---
+
+### Browser
+
 Since Selenium uses the installed web browser, you need to adapt the `instagram.py` and `duckai.py` files to your browser of choice. The default is `Firefox`.
 
 ## Usage:

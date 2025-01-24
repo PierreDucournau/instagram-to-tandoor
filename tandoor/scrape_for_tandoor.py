@@ -19,8 +19,7 @@ def scrape_recipe_for_tandoor(url):
         - Servings information
         - Nutrition and other metadata
     5. Updates the JSON structure with the extracted information.
-    6. Saves the final JSON structure to a file named 'output.json'.
-    7. Sends the JSON structure to the Tandoor API.
+    6. Sends the JSON structure to the Tandoor API.
     Returns:
         None
     """
@@ -117,7 +116,7 @@ def scrape_recipe_for_tandoor(url):
                     ingredient["is_header"] = False
                             
             print(json.dumps(full_json, indent=2))
-            with open('./tandoor/output.json', 'w') as outfile:
+            with open('./tandoor/final_json.json', 'w') as outfile:
                 json.dump(full_json, outfile, indent=2)
                 
             send_to_tandoor(full_json)

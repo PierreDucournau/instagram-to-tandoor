@@ -2,19 +2,30 @@ import requests as request
 import os
 import json
 
-
-def send_to_tandoor(data):
+def send_to_tandoor(json_file):
     """
-    Sends recipe data to the Tandoor API.
-    This function takes a dictionary containing recipe data and sends it to the Tandoor API using a POST request.
-    The API endpoint and authorization token are retrieved from environment variables.
+    Sends a JSON file to the Tandoor API to create recipe.
     Args:
-        data (dict): A dictionary containing the recipe data to be sent to the Tandoor API.
+        json_file (dict): The JSON data to be sent to the Mealie API.
     Returns:
         None
     Raises:
         requests.exceptions.RequestException: If there is an issue with the HTTP request.
-    """
+    """    
     headers = {'Authorization': f'Bearer {os.getenv("TOKEN_TANDOOR")}', 'Content-Type': 'application/json'}
-    answer = request.post(f'{os.getenv("BASE_URL_TANDOOR")}/api/recipe/', json=data, headers=headers)
-    print(json.dumps(answer.json(), indent=2))
+    try:
+        response = request.post(f'{os.getenv("BASE_URL_TANDOOR")}/api/recipe/', json=json_file, headers=headers)
+        response.raise_for_status()
+
+    except request.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+        print(f"Response content: {response.content}")
+    except request.exceptions.ConnectionError as conn_err:
+        print(f"Connection error occurred: {conn_err}")
+    except request.exceptions.Timeout as timeout_err:
+        print(f"Timeout error occurred: {timeout_err}")
+    except request.exceptions.RequestException as req_err:
+        print(f"An error occurred: {req_err}")
+    finally:
+        print("Successfully created recipe in Tandoor with content:")
+        print(json.dumps(json_file, indent=2))
