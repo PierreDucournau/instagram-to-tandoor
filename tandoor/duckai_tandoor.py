@@ -19,6 +19,8 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
     Returns:
         dict or None: The JSON response from Duck.ai if successful, otherwise None.
     """
+    
+    print("Prompting Duck AI and waiting for response...")
 
     options = Options()
     options.add_argument('--headless')
@@ -85,6 +87,8 @@ def get_number_of_steps(caption):
     Raises:
         Exception: If an error occurs during the web scraping process.
     """
+    
+    print("Prompting Duck AI and waiting for response...")
     
     options = Options()
     options.add_argument('--headless')
