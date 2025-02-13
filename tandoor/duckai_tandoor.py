@@ -22,9 +22,28 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
     
     print("Prompting Duck AI and waiting for response...")
 
-    options = Options()
-    options.add_argument('--headless')
-    browser = webdriver.Firefox(options=options)
+    match os.getenv("BROWSER"):
+        case "firefox":
+            options = webdriver.FirefoxOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Firefox(options=options)
+        case "chrome":
+            options = webdriver.ChromeOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Chrome(options=options)
+        case "edge":
+            options = webdriver.EdgeOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Edge(options=options)
+        case "safari":
+            options = webdriver.SafariOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Safari(options=options)
+        case _:
+            options = webdriver.FirefoxOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Firefox(options=options)
+
     browser.get("https://duck.ai/")
     
     try:

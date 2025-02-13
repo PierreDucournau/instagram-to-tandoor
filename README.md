@@ -63,9 +63,15 @@ You can retrieve your tandoor token by
 
 ---
 
-### Browser
+### Change Browser
 
-Since Selenium uses the installed web browser, you need to adapt the `instagram.py` and `duckai.py` files to your browser of choice. The default is `Firefox`.
+The script uses Selenium to interact with the installed web browser. The browser is hidden by default, so don't worry if nothing pops up. You can check if your installed browser is compatible by checking the [Selenium documentation](https://www.selenium.dev/documentation/webdriver/browsers/). The default browser is `Firefox`. To change the browser, add the following to your `.env' file
+
+```
+BROWSER=chrome
+```
+
+other possible values are `edge`, `safari`, `firefox`. If you do not add this line, the default browser is `Firefox`.
 
 ## Usage:
 
