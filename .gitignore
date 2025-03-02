@@ -4,3 +4,4 @@ __pycache__
 final_json.json
 .DS_Store
 ./app.db
+./instance
