@@ -4,3 +4,4 @@ __pycache__
 final_json.json
 README.md
 .DS_Store
+./app.db
