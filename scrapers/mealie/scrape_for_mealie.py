@@ -1,6 +1,6 @@
-from social_scraper import get_caption_from_post
-from mealie.mealie_api import send_to_mealie
-from mealie.duckai_mealie import prompt_chatgpt
+from scrapers.social_scraper import get_caption_from_post
+from scrapers.mealie.mealie_api import send_to_mealie
+from scrapers.mealie.duckai_mealie import prompt_chatgpt
 import json
 from datetime import datetime
 
@@ -115,7 +115,7 @@ def scrape_recipe_for_mealie(url):
         }
                         
         print(json.dumps(final_json, indent=2))
-        with open('./mealie/final_json.json', 'w') as outfile:
+        with open('./scrapers/mealie/final_json.json', 'w') as outfile:
             json.dump(final_json, outfile, indent=2)
             
         send_to_mealie(final_json)

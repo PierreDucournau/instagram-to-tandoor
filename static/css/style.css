@@ -1,0 +1,43 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+}
+
+footer {
+  margin-top: auto;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.card-header {
+  border-bottom: none;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.progress {
+  height: 25px;
+}
+
+.progress-bar {
+  font-weight: bold;
+}
+
+table th,
+table td {
+  vertical-align: middle;
+}

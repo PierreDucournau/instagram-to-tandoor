@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="./images/icon-512.png" alt="App Icon" width="100" />
+</p>
+
 # Social Media -> Tandoor / Mealie
 
 Since I often browse Instagram or TikTok for recipes, I wanted a way to save them to my own recipe collection on [Tandoor](https://github.com/TandoorRecipes/recipes). Getting an Instagram / TikTok API took me too long, so I decided to use [Selenium](https://github.com/SeleniumHQ/selenium) to scrape the recipe from a provided Instagram / TikTok post. Since everyone writes their recipes differently and it's almost impossible to parse them all into the required JSON format, I decided to use an LLM. My notebook is not powerful enough to use [Ollama](https://ollama.com/) for this, so I decided to use [DuckAi](https://duck.ai). To automate the query process, I also used Selenium to interact with the website.
@@ -5,21 +9,34 @@ When I get all the necessary JSON parts, I combine them and send them to Tandoor
 
 The problem with LLM's is that they are not deterministic, so the output can be variable in quality. Sometimes you have to adjust the output manually, but in most cases it's good enough to use as is.
 
-## Docker
+## 💪 Features
 
-### Installation:
+- [x] Scrape Instagram / TikTok posts
+- [x] Use DuckAi to generate recipe JSON
+- [x] Upload recipe to Tandoor / Mealie
+- [x] Docker support
+- [x] WebUi
+
+## 🖼️ Impressions
+
+<p align="center">
+    <img src="./images/web_ui_start.png" alt="WebUi start" width="32%"/>
+    <img src="./images/web_ui_job.png" alt="WebUi job" width="32%" />
+    <img src="./images/web_ui_history.png" alt="WebUi history" width="32%" />
+</p>
+
+## 📦 Installation using Docker:
 
 Make sure you have docker installed on your system.
 
 ```
 git clone https://github.com/doen1el/instagram-to-tandoor.git instagram-to-tandoor
 cd instagram-to-tandoor
-docker build -t instagram-to-tandoor .
 ```
 
 ### Preparation:
 
-You need to edit the Dockerfile and change the ENV variables to your needs.
+You need to edit the docker-compose file and change the ENV variables to your needs.
 
 #### Tandoor
 
@@ -51,19 +68,17 @@ You can retrieve your tandoor token by
 2. Creating a new api token with a name of your choice
 3. Copy the token and add it to the `.env` file
 
-### Build the image:
+### Build and run the container:
 
 ```
-docker build -t instagram-to-tandoor .
+docker compose up -d
 ```
 
 ### Usage:
 
-```
-docker run -it instagram-to-tandoor python3 main.py -url [https://www.instagram.com/...] -mode [mealie (m) | tandoor (t)] -platform [instagram (i) | tiktok (t)]
-```
+Visit `http://localhost:5000` in your browser and use the web interface to add a new recipe.
 
-## Without Docker:
+## 📦 Installation without Dockers:
 
 Make sure you have python 3.x installed on your system.
 
@@ -85,11 +100,11 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Preparation:
+### Preparation:
 
 Create an `.env` file in the root directory of the project and add the following
 
-### Tandoor
+#### Tandoor
 
 ```
 BASE_URL_TANDOOR=https://YOUR_TANDOOR_URL
@@ -105,7 +120,7 @@ You can retrieve your tandoor token by
 
 ---
 
-### Mealie
+#### Mealie
 
 ```
 BASE_URL_MEALIE=https://YOUR_MEALIE_URL
@@ -131,7 +146,15 @@ BROWSER=chrome
 
 other possible values are `edge`, `safari`, `firefox`. If you do not add this line, the default browser is `Firefox`.
 
-## Usage:
+### Usage:
+
+#### WebUi:
+
+```
+python3 app.py
+```
+
+#### Command Line:
 
 ```
 python3 main.py -url [https://www.instagram.com/...] -mode [mealie (m) | tandoor (t)] -platform [instagram (i) | tiktok (t)]
@@ -145,22 +168,22 @@ python3 main.py -help
 
 for more information.
 
-## Contributing:
+## 🚀 Contributing
 
 Feel free to open an issue, pull request, or simply fork the project.
 
-## Disclaimer:
+## ⚠️ Disclaimer:
 
 By using this application you accept [DuckDuckGo AI Chat ToS](https://duckduckgo.com/aichat/privacy-terms)
 
-## Todo's:
+## 🚧 Roadmap
 
 - [x] Add TikTok support
 - [x] Dockerize the project
-- [ ] Create a GUI
+- [x] Create a GUI
 - [ ] Optimize prompting
 
-## Special thanks to the following projects:
+## 📜 Credits
 
 - [Tandoor](https://github.com/TandoorRecipes/recipes)
 - [Selenium](https://github.com/SeleniumHQ/selenium)

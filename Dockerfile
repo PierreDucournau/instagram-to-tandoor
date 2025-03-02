@@ -26,17 +26,9 @@ COPY . .
 
 # dont change the browser
 ENV BROWSER=docker
+ENV FLASK_APP=app.py
 
-# Set environment variables:
+EXPOSE 5000
 
-# ENV BASE_URL_MEALIE=
-ENV BASE_URL_TANDOOR=
-
-# ENV TOKEN_MEALIE= 
-ENV TOKEN_TANDOOR=
-
-# your language code (de, en,)
-ENV LANGUAGE_CODE=en
-
-# Keep container running for interactive use
-CMD ["tail", "-f", "/dev/null"]
+# Run the application
+CMD ["flask", "run", "--host=0.0.0.0"]

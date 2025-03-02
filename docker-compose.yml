@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      # ENV BASE_URL_MEALIE=
+      - ENV BASE_URL_TANDOOR=
+      # ENV TOKEN_MEALIE=
+      - ENV TOKEN_TANDOOR=
+      # your language code (en, de)
+      - ENV LANGUAGE_CODE=de
+      # your db secret (random string)
+      - ENV DB_SECRET=
+    volumes:
+      - ./app.db:/app/app.db

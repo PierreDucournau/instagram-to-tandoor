@@ -36,3 +36,6 @@ urllib3==2.3.0
 websocket-client==1.8.0
 wsproto==1.2.0
 yarl==1.18.3
+flask>=2.3.0
+flask-sqlalchemy>=3.0.0
+flask-migrate>=4.0.0

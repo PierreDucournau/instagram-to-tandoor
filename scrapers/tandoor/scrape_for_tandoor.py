@@ -1,7 +1,7 @@
 import json
-from social_scraper import get_caption_from_post
-from tandoor.duckai_tandoor import prompt_chatgpt, get_number_of_steps
-from tandoor.tandoor_api import send_to_tandoor
+from scrapers.social_scraper import get_caption_from_post
+from scrapers.tandoor.duckai_tandoor import prompt_chatgpt, get_number_of_steps
+from scrapers.tandoor.tandoor_api import send_to_tandoor
 
 
 def scrape_recipe_for_tandoor(url):
@@ -116,7 +116,7 @@ def scrape_recipe_for_tandoor(url):
                     ingredient["is_header"] = False
                             
             print(json.dumps(full_json, indent=2))
-            with open('./tandoor/final_json.json', 'w') as outfile:
+            with open('./scrapers/tandoor/final_json.json', 'w') as outfile:
                 json.dump(full_json, outfile, indent=2)
                 
             send_to_tandoor(full_json)
