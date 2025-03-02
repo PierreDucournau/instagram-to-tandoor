@@ -36,7 +36,7 @@ def main():
         -url (str): The URL of the Instagram post.
         -mode (str): The mode of the recipe extraction ('mealie'/'m' or 'tandoor'/'t').
     """
-    parser = argparse.ArgumentParser(description='Extract recipe information from an Instagram post')
+    parser = argparse.ArgumentParser(description='Extract recipe information from an post')
     parser.add_argument('-url', type=str, required=True, help='The URL of the Instagram post')
     parser.add_argument('-mode', type=str, required=True, help='The mode of the recipe extraction (mealie or tandoor)')
     parser.add_argument('-platform', type=str, required=True, help='The platform of the URL (instagram or tiktok)')
