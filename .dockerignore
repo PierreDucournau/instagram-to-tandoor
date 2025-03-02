@@ -6,3 +6,4 @@ README.md
 .DS_Store
 ./app.db
 ./instance
+app.db
