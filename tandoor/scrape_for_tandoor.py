@@ -1,5 +1,5 @@
 import json
-from instagram import get_caption_from_post
+from social_scraper import get_caption_from_post
 from tandoor.duckai_tandoor import prompt_chatgpt, get_number_of_steps
 from tandoor.tandoor_api import send_to_tandoor
 

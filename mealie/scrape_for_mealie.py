@@ -1,4 +1,4 @@
-from instagram import get_caption_from_post
+from social_scraper import get_caption_from_post
 from mealie.mealie_api import send_to_mealie
 from mealie.duckai_mealie import prompt_chatgpt
 import json

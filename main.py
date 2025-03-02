@@ -6,7 +6,8 @@ from tandoor.scrape_for_tandoor import scrape_recipe_for_tandoor
 
 load_dotenv()
 
-def is_valid_instagram_url(url):
+
+def is_valid_url(url, platform):
     """
     Check if the given URL is a valid Instagram URL.
     Args:
@@ -14,10 +15,14 @@ def is_valid_instagram_url(url):
     Returns:
         bool: True if the URL matches the Instagram URL pattern, False otherwise.
     """
-    instagram_url_pattern = re.compile(
-        r'^(https?:\/\/)?(www\.)?instagram\.com\/[A-Za-z0-9_\-\/]+\/?(\?.*)?$'
-    )
-    return re.match(instagram_url_pattern, url) is not None
+    
+    match platform:
+        case "instagram" | "i":
+            url_pattern = re.compile(r'^(https?:\/\/)?(www\.)?instagram\.com\/[A-Za-z0-9_\-\/]+\/?(\?.*)?$')
+        case "tiktok" | "t":
+            url_pattern = re.compile(r'^(https?:\/\/)?(www\.)?tiktok\.com\/@?[A-Za-z0-9_\-\/]+\/video\/[0-9]+(\?.*)?$')
+            
+    return re.match(url_pattern, url) is not None
     
 def main():
     """
@@ -34,10 +39,11 @@ def main():
     parser = argparse.ArgumentParser(description='Extract recipe information from an Instagram post')
     parser.add_argument('-url', type=str, required=True, help='The URL of the Instagram post')
     parser.add_argument('-mode', type=str, required=True, help='The mode of the recipe extraction (mealie or tandoor)')
+    parser.add_argument('-platform', type=str, required=True, help='The platform of the URL (instagram or tiktok)')
     args = parser.parse_args()
     
-    if not is_valid_instagram_url(args.url):
-        raise ValueError("Invalid Instagram URL. Please provide a valid Instagram post URL.")
+    if not is_valid_url(args.url, args.platform):
+        raise ValueError("Invalid URL. Please provide a valid post URL.")
     
     if args.mode == 'mealie' or args.mode == 'm':
         scrape_recipe_for_mealie(args.url)

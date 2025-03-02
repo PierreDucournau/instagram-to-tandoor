@@ -56,14 +56,9 @@ def prompt_chatgpt(caption, part, mode="", step_number=None):
         start_button.click()
         
         continue_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/button"))
+            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/div[2]/button"))
         )
         continue_button.click()
-        
-        agree_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[4]/div/div[2]/button"))
-        )
-        agree_button.click()
         
         # Wait for the textarea and enter the prompt
         textarea = WebDriverWait(browser, 10).until(

@@ -1,6 +1,6 @@
-# Instagram -> Tandoor / Mealie
+# Social Media -> Tandoor / Mealie
 
-Since I often browse Instagram for recipes, I wanted a way to save them to my own recipe collection on [Tandoor](https://github.com/TandoorRecipes/recipes). Getting an Instagram API took me too long, so I decided to use [Selenium](https://github.com/SeleniumHQ/selenium) to scrape the recipe from a provided Instagram post. Since everyone writes their recipes differently and it's almost impossible to parse them all into the required JSON format, I decided to use an LLM. My notebook is not powerful enough to use [Ollama](https://ollama.com/) for this, so I decided to use [DuckAi](https://duck.ai). To automate the query process, I also used Selenium to interact with the website.
+Since I often browse Instagram or TikTok for recipes, I wanted a way to save them to my own recipe collection on [Tandoor](https://github.com/TandoorRecipes/recipes). Getting an Instagram / TikTok API took me too long, so I decided to use [Selenium](https://github.com/SeleniumHQ/selenium) to scrape the recipe from a provided Instagram / TikTok post. Since everyone writes their recipes differently and it's almost impossible to parse them all into the required JSON format, I decided to use an LLM. My notebook is not powerful enough to use [Ollama](https://ollama.com/) for this, so I decided to use [DuckAi](https://duck.ai). To automate the query process, I also used Selenium to interact with the website.
 When I get all the necessary JSON parts, I combine them and send them to Tandoor using the implemented API.
 
 The problem with LLM's is that they are not deterministic, so the output can be variable in quality. Sometimes you have to adjust the output manually, but in most cases it's good enough to use as is.
@@ -76,7 +76,7 @@ other possible values are `edge`, `safari`, `firefox`. If you do not add this li
 ## Usage:
 
 ```
-python3 main.py -url [https://www.instagram.com/...] -mode [mealie (m) | tandoor (t)]
+python3 main.py -url [https://www.instagram.com/...] -mode [mealie (m) | tandoor (t)] -platform [instagram (i) | tiktok (t)]
 ```
 
 or use
@@ -97,10 +97,10 @@ By using this application you accept [DuckDuckGo AI Chat ToS](https://duckduckgo
 
 ## Todo's:
 
+- [x] Add TikTok support
 - [ ] Dockerize the project
 - [ ] Create a GUI
 - [ ] Optimize prompting
-- [ ] Add more error handling
 
 ## Special thanks to the following projects:
 

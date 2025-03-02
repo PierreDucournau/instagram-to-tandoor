@@ -14,7 +14,7 @@ def get_caption_from_post(url):
         str: The caption of the Instagram post if found, otherwise None.
     """
     
-    print("Extracting caption from Instagram post")
+    print("Extracting caption from social media post")
             
     match os.getenv("BROWSER"):
         case "firefox":

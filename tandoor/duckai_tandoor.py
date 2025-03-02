@@ -54,14 +54,9 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
         start_button.click()
         
         continue_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/button"))
+            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/div[2]/button"))
         )
         continue_button.click()
-        
-        agree_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[4]/div/div[2]/button"))
-        )
-        agree_button.click()
         
         # Wait for the textarea and enter the prompt
         textarea = WebDriverWait(browser, 10).until(
@@ -109,9 +104,28 @@ def get_number_of_steps(caption):
     
     print("Prompting Duck AI and waiting for response...")
     
-    options = Options()
-    options.add_argument('--headless')
-    browser = webdriver.Firefox(options=options)
+    match os.getenv("BROWSER"):
+        case "firefox":
+            options = webdriver.FirefoxOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Firefox(options=options)
+        case "chrome":
+            options = webdriver.ChromeOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Chrome(options=options)
+        case "edge":
+            options = webdriver.EdgeOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Edge(options=options)
+        case "safari":
+            options = webdriver.SafariOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Safari(options=options)
+        case _:
+            options = webdriver.FirefoxOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Firefox(options=options)
+    
     browser.get("https://duck.ai/")
     
     try:
@@ -123,14 +137,9 @@ def get_number_of_steps(caption):
         start_button.click()
         
         continue_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/button"))
+            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/div[2]/button"))
         )
         continue_button.click()
-        
-        agree_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[4]/div/div[2]/button"))
-        )
-        agree_button.click()
         
         # Wait for the textarea and enter the prompt
         textarea = WebDriverWait(browser, 10).until(
