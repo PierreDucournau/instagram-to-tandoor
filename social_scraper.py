@@ -33,6 +33,13 @@ def get_caption_from_post(url):
             options = webdriver.SafariOptions()
             options.add_argument("--headless")
             browser = webdriver.Safari(options=options)
+        case "docker":
+            options = webdriver.FirefoxOptions()
+            options.add_argument("--headless")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+            service = webdriver.firefox.service.Service(executable_path="/usr/local/bin/geckodriver")
+            browser = webdriver.Firefox(options=options, service=service)
         case _:
             options = webdriver.FirefoxOptions()
             options.add_argument("--headless")

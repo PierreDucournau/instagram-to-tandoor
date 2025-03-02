@@ -5,7 +5,65 @@ When I get all the necessary JSON parts, I combine them and send them to Tandoor
 
 The problem with LLM's is that they are not deterministic, so the output can be variable in quality. Sometimes you have to adjust the output manually, but in most cases it's good enough to use as is.
 
-## Installation:
+## Docker
+
+### Installation:
+
+Make sure you have docker installed on your system.
+
+```
+git clone https://github.com/doen1el/instagram-to-tandoor.git instagram-to-tandoor
+cd instagram-to-tandoor
+docker build -t instagram-to-tandoor .
+```
+
+### Preparation:
+
+You need to edit the Dockerfile and change the ENV variables to your needs.
+
+#### Tandoor
+
+```
+BASE_URL_TANDOOR=https://YOUR_TANDOOR_URL
+TOKEN_TANDOOR=YOUR_TANDOOR_TOKEN
+LANGUAGE_CODE=de (or en, etc.)
+```
+
+You can retrieve your tandoor token by
+
+1. Visiting `https://YOUR_TANDOOR_URL/settings/#api`.
+2. Creating a new token using the `write read bookmarklet` and a name of your choice
+3. Copy the token and add it to the `.env` file
+
+---
+
+#### Mealie
+
+```
+BASE_URL_MEALIE=https://YOUR_MEALIE_URL
+TOKEN_MEALIE=YOUR_TANDOOR_TOKEN
+LANGUAGE_CODE=de (or en, etc.)
+```
+
+You can retrieve your tandoor token by
+
+1. Visiting `https://YOUR_TANDOOR_URL/user/profile`.
+2. Creating a new api token with a name of your choice
+3. Copy the token and add it to the `.env` file
+
+### Build the image:
+
+```
+docker build -t instagram-to-tandoor .
+```
+
+### Usage:
+
+```
+docker run -it instagram-to-tandoor python3 main.py -url [https://www.instagram.com/...] -mode [mealie (m) | tandoor (t)] -platform [instagram (i) | tiktok (t)]
+```
+
+## Without Docker:
 
 Make sure you have python 3.x installed on your system.
 
@@ -98,7 +156,7 @@ By using this application you accept [DuckDuckGo AI Chat ToS](https://duckduckgo
 ## Todo's:
 
 - [x] Add TikTok support
-- [ ] Dockerize the project
+- [x] Dockerize the project
 - [ ] Create a GUI
 - [ ] Optimize prompting
 
