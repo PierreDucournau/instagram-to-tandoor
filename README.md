@@ -11,7 +11,7 @@ The problem with LLM's is that they are not deterministic, so the output can be 
 
 ## 💪 Features
 
-- [x] Scrape Instagram / TikTok posts
+- [x] Scrape Instagram / TikTok posts (with images)
 - [x] Use DuckAi to generate recipe JSON
 - [x] Upload recipe to Tandoor / Mealie
 - [x] Docker support

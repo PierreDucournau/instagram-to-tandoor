@@ -46,9 +46,9 @@ def main():
         raise ValueError("Invalid URL. Please provide a valid post URL.")
     
     if args.mode == 'mealie' or args.mode == 'm':
-        scrape_recipe_for_mealie(args.url)
+        scrape_recipe_for_mealie(args.url, args.platform)
     elif args.mode == 'tandoor' or args.mode == 't':
-        scrape_recipe_for_tandoor(args.url)
+        scrape_recipe_for_tandoor(args.url, args.platform)
     else:
         raise ValueError("Invalid mode. Please specify either 'mealie'/'m' or 'tandoor'/'t'")
 

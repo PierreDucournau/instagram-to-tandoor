@@ -4,7 +4,7 @@ from scrapers.mealie.duckai_mealie import prompt_chatgpt
 import json
 from datetime import datetime
 
-def scrape_recipe_for_mealie(url):
+def scrape_recipe_for_mealie(url, platform):
     """
     Function to process an Instagram post URL and extract recipe information.
     Args:
@@ -22,7 +22,7 @@ def scrape_recipe_for_mealie(url):
         None
     """
     
-    caption = get_caption_from_post(url)
+    caption, thumbnail_filename = get_caption_from_post(url, platform)
     if caption:
         json_parts = [
             {
@@ -50,7 +50,7 @@ def scrape_recipe_for_mealie(url):
                     },
             },
             {
-                "name": "Mom's World Famous Banana Bread",
+                "name": "",
             },
             {
                 "nutrition": {
@@ -118,4 +118,4 @@ def scrape_recipe_for_mealie(url):
         with open('./scrapers/mealie/final_json.json', 'w') as outfile:
             json.dump(final_json, outfile, indent=2)
             
-        send_to_mealie(final_json)
+        send_to_mealie(final_json, thumbnail_filename)

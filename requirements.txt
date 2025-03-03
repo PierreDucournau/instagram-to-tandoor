@@ -39,3 +39,4 @@ yarl==1.18.3
 flask>=2.3.0
 flask-sqlalchemy>=3.0.0
 flask-migrate>=4.0.0
+pillow==11.1.0

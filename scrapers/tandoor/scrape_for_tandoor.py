@@ -4,7 +4,7 @@ from scrapers.tandoor.duckai_tandoor import prompt_chatgpt, get_number_of_steps
 from scrapers.tandoor.tandoor_api import send_to_tandoor
 
 
-def scrape_recipe_for_tandoor(url):
+def scrape_recipe_for_tandoor(url, platform):
     """
     Function to process an Instagram post URL and extract recipe information.
     Args:
@@ -24,7 +24,7 @@ def scrape_recipe_for_tandoor(url):
         None
     """
     
-    caption = get_caption_from_post(url)
+    caption, thumbnail_filename = get_caption_from_post(url, platform)
     if caption:
         number_of_steps = get_number_of_steps(caption)
         print(f"Number of steps in the recipe: {number_of_steps}")
@@ -119,4 +119,4 @@ def scrape_recipe_for_tandoor(url):
             with open('./scrapers/tandoor/final_json.json', 'w') as outfile:
                 json.dump(full_json, outfile, indent=2)
                 
-            send_to_tandoor(full_json)
+            send_to_tandoor(full_json, thumbnail_filename)
