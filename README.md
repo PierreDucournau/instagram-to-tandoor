@@ -58,7 +58,7 @@ You can retrieve your tandoor token by
 
 ```
 BASE_URL_MEALIE=https://YOUR_MEALIE_URL
-TOKEN_MEALIE=YOUR_TANDOOR_TOKEN
+TOKEN_MEALIE=YOUR_MEALIE_TOKEN
 LANGUAGE_CODE=de (or en, etc.)
 ```
 
@@ -124,7 +124,7 @@ You can retrieve your tandoor token by
 
 ```
 BASE_URL_MEALIE=https://YOUR_MEALIE_URL
-TOKEN_MEALIE=YOUR_TANDOOR_TOKEN
+TOKEN_MEALIE=YOUR_MEALIE_TOKEN
 LANGUAGE_CODE=de (or en, etc.)
 ```
 
