@@ -63,10 +63,10 @@ def process_scraping_job(job_id):
             result = None
             if job.target == 'tandoor':
                 update_job_status(job_id, 'processing', 40, 'Processing for Tandoor...')
-                result = scrape_recipe_for_tandoor(job.url)
+                result = scrape_recipe_for_tandoor(job.url, job.platform)
             elif job.target == 'mealie':
                 update_job_status(job_id, 'processing', 40, 'Processing for Mealie...')
-                result = scrape_recipe_for_mealie(job.url)
+                result = scrape_recipe_for_mealie(job.url, job.platform)
             
             update_job_status(job_id, 'processing', 80, 'Finishing up...')
             
