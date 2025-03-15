@@ -56,7 +56,7 @@ def prompt_chatgpt(caption, part, mode="", step_number=None):
     browser.get("https://duck.ai/")
     
     try:
-        # click through the initial steps
+         # click through the initial steps
         start_button = WebDriverWait(browser, 10).until(
             EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[2]/div/button"))
         )
@@ -90,10 +90,9 @@ def prompt_chatgpt(caption, part, mode="", step_number=None):
         textarea.send_keys(Keys.RETURN)
         
         # Wait for the "Send" button to be enabled        
-        WebDriverWait(browser, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@aria-label='Senden' and @disabled]")))
-        
+        WebDriverWait(browser, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and @disabled]")))        
         # Wait for the "Stopp" button to disappear
-        WebDriverWait(browser, 60).until_not(EC.presence_of_element_located((By.XPATH, "//button[@aria-label='Stopp']")))
+        WebDriverWait(browser, 60).until_not(EC.presence_of_element_located((By.XPATH, "//button//rect[@width='10' and @height='10']")))
         
         # Extract the JSON response from the page source
         response = browser.page_source

@@ -66,30 +66,34 @@ def get_caption_from_post(url, platform):
         except Exception as e:
             print(f"Failed to hide div: {e}")
     
-    print("Waiting for the video to load")
+    print("Waiting for the Website to load")
     time.sleep(0.5)
         
-    # Try to capture video thumbnail
-    try:
-        # Create thumbnails directory if it doesn't exist
-        os.makedirs('thumbnails', exist_ok=True)
-        
-        # Generate a unique filename
-        thumbnail_filename = f"thumbnails/thumbnail_{int(time.time())}.png"
-        
-        # Wait for video element to be present
-        WebDriverWait(browser, 10).until(
-            EC.presence_of_element_located((By.TAG_NAME, "video"))
-        )
-        
-        # Find the video element
-        video = browser.find_element(By.TAG_NAME, "video")
-        
-        # Take screenshot of the video element
-        video.screenshot(thumbnail_filename)
-        print(f"Thumbnail saved to {thumbnail_filename}")
-    except Exception as e:
-        print(f"Failed to capture thumbnail: {e}")
+    if os.getenv("BROWSER") != "docker":
+        # Try to capture video thumbnail
+        try:
+            # Create thumbnails directory if it doesn't exist
+            os.makedirs('thumbnails', exist_ok=True)
+            
+            # Generate a unique filename
+            thumbnail_filename = f"thumbnails/thumbnail_{int(time.time())}.png"
+            
+            # Wait for video element to be present
+            WebDriverWait(browser, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "video"))
+            )
+            
+            # Find the video element
+            video = browser.find_element(By.TAG_NAME, "video")
+            
+            # Take screenshot of the video element
+            video.screenshot(thumbnail_filename)
+            print(f"Thumbnail saved to {thumbnail_filename}")
+        except Exception as e:
+            print(f"Failed to capture thumbnail: {e}")
+    else:
+        thumbnail_filename = None
+        print("Running in Docker, skipping thumbnail capture")
     
     source = browser.page_source
     data = BeautifulSoup(source, 'html.parser')
