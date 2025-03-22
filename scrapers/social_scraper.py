@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
-
+import re
+import json
 import time
 import os
 
@@ -98,10 +98,28 @@ def get_caption_from_post(url, platform):
     source = browser.page_source
     data = BeautifulSoup(source, 'html.parser')
     
-    caption = None
-    for span in data.findAll('h1'):
-        if span.get_text():
-            caption = span.get_text()
+    # Handle Instagram captions
+    if (platform == "instagram" or platform == "i"):
+        caption = None
+        try:
+            for span in data.findAll('h1'):
+                if span.get_text():
+                    caption = span.get_text()
+        except Exception as e:
+            print(f"Error extracting Instagram caption: {e}")
+    else:
+        # Handle TikTok captions
+        caption = None
+        try:
+            pictures = data.find_all('picture')
+            for picture in pictures:
+                img = picture.find('img')
+                caption = img.get('alt')
+                if caption:
+                    break
+        except Exception as e:
+            print(f"Error extracting TikTok caption: {e}")
+        
                 
     browser.close()
     
