@@ -7,6 +7,9 @@ from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
 import os
 import json
+from logs import setup_logging
+
+logger = setup_logging("duckai_tandoor")
 
 def prompt_chatgpt(caption, part, isStep=False, step_number=None):
     """
@@ -20,7 +23,7 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
         dict or None: The JSON response from Duck.ai if successful, otherwise None.
     """
     
-    print("Prompting Duck AI and waiting for response...")
+    logger.info("Prompting Duck AI and waiting for response...")
 
     match os.getenv("BROWSER"):
         case "firefox":
@@ -61,7 +64,7 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
         start_button.click()
         
         continue_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/div[2]/button"))
+            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/button"))
         )
         continue_button.click()
         
@@ -93,7 +96,7 @@ def prompt_chatgpt(caption, part, isStep=False, step_number=None):
             return None
         
     except Exception as e:
-        print("An error occurred:", e)
+        logger.info("An error occurred:", e)
         return None
     finally:
         browser.close()
@@ -109,7 +112,7 @@ def get_number_of_steps(caption):
         Exception: If an error occurs during the web scraping process.
     """
     
-    print("Prompting Duck AI and waiting for response...")
+    logger.info("Prompting Duck AI and waiting for response...")
     
     match os.getenv("BROWSER"):
         case "firefox":
@@ -151,7 +154,7 @@ def get_number_of_steps(caption):
         start_button.click()
         
         continue_button = WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/div[2]/button"))
+            EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/button"))
         )
         continue_button.click()
         
@@ -182,12 +185,12 @@ def get_number_of_steps(caption):
                         number_of_steps = int(paragraph.get_text().strip())
                         return number_of_steps
                     except ValueError:
-                        print("An error occurred: The extracted text is not a valid number.")
+                        logger.info("An error occurred: The extracted text is not a valid number.")
                         return None
         return None
         
     except Exception as e:
-        print("An error occurred:", e)
+        logger.info("An error occurred:", e)
         return None
     finally:
         browser.close()

@@ -2,6 +2,9 @@ import json
 from scrapers.social_scraper import get_caption_from_post
 from scrapers.tandoor.duckai_tandoor import prompt_chatgpt, get_number_of_steps
 from scrapers.tandoor.tandoor_api import send_to_tandoor
+from logs import setup_logging
+
+logger = setup_logging("scrape_for_tandoor")
 
 
 def scrape_recipe_for_tandoor(url, platform):
@@ -24,10 +27,16 @@ def scrape_recipe_for_tandoor(url, platform):
         None
     """
     
-    caption, thumbnail_filename = get_caption_from_post(url, platform)
-    if caption:
+    result = get_caption_from_post(url, platform)
+    
+    if result == None:
+        logger.info("No caption or image found")
+        raise Exception("No caption or image found")
+    
+    if result:
+        caption, thumbnail_filename = result
         number_of_steps = get_number_of_steps(caption)
-        print(f"Number of steps in the recipe: {number_of_steps}")
+        logger.info(f"Number of steps: {number_of_steps}")
         if number_of_steps:
             json_parts = [
                 {
@@ -87,23 +96,23 @@ def scrape_recipe_for_tandoor(url, platform):
             if name_res:
                 full_json.update(name_res)
                     
-            print(json.dumps(full_json, indent=2))
+            logger.info(json.dumps(full_json, indent=2))
                     
             steps = {"steps": []}
             for i in range(1, number_of_steps + 1):
                 instruction_res = prompt_chatgpt(caption, json_parts[1], True, i)
                 if instruction_res:
                     steps["steps"].append(instruction_res)
-                print(json.dumps(steps, indent=2))
+                logger.info(json.dumps(steps, indent=2))
             
             full_json.update(steps)
-            print(json.dumps(full_json, indent=2))
+            logger.info(json.dumps(full_json, indent=2))
             
             servings_res = prompt_chatgpt(caption, json_parts[2])
             if servings_res:
                 full_json.update(servings_res)
                 
-            print(json.dumps(full_json, indent=2))
+            logger.info(json.dumps(full_json, indent=2))
                 
             nutrition_res = prompt_chatgpt(caption, json_parts[3])
             if nutrition_res:
@@ -115,7 +124,7 @@ def scrape_recipe_for_tandoor(url, platform):
                 for ingredient in step.get("ingredients", []):
                     ingredient["is_header"] = False
                             
-            print(json.dumps(full_json, indent=2))
+            logger.info(json.dumps(full_json, indent=2))
             with open('./scrapers/tandoor/final_json.json', 'w') as outfile:
                 json.dump(full_json, outfile, indent=2)
                 

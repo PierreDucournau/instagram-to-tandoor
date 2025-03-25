@@ -3,6 +3,9 @@ import os
 import json
 from io import BytesIO
 from PIL import Image
+from logs import setup_logging
+
+logger = setup_logging("mealie_api")
 
 def send_to_mealie(json_file, thumbnail_filename):
     """
@@ -15,13 +18,13 @@ def send_to_mealie(json_file, thumbnail_filename):
     Raises:
         requests.exceptions.RequestException: If there is an issue with the HTTP request.
     """
-    print("URL: ", os.getenv("BASE_URL_MEALIE"))
+    logger.info("URL: ", os.getenv("BASE_URL_MEALIE"))
 
     headers = {'Authorization': f'Bearer {os.getenv("TOKEN_MEALIE")}', 'Content-Type': 'application/json'}
     try:
         response = request.post(f'{os.getenv("BASE_URL_MEALIE")}/api/recipes/create/html-or-json', json=json_file, headers=headers)
         recipe_id = response.content.decode('utf-8').strip('"')
-        print("Recipe ID: ", recipe_id)
+        logger.info("Recipe ID: ", recipe_id)
         
         # If thumbnail exists, upload it 
         if thumbnail_filename and recipe_id and os.path.exists(thumbnail_filename):
@@ -30,17 +33,17 @@ def send_to_mealie(json_file, thumbnail_filename):
         response.raise_for_status()
 
     except request.exceptions.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
-        print(f"Response content: {response.content}")
+        logger.info(f"HTTP error occurred: {http_err}")
+        logger.info(f"Response content: {response.content}")
     except request.exceptions.ConnectionError as conn_err:
-        print(f"Connection error occurred: {conn_err}")
+        logger.info(f"Connection error occurred: {conn_err}")
     except request.exceptions.Timeout as timeout_err:
-        print(f"Timeout error occurred: {timeout_err}")
+        logger.info(f"Timeout error occurred: {timeout_err}")
     except request.exceptions.RequestException as req_err:
-        print(f"An error occurred: {req_err}")
+        logger.info(f"An error occurred: {req_err}")
     finally:
-        print("Successfully created recipe in Mealie with content:")
-        print(json.dumps(json_file, indent=2))
+        logger.info("Successfully created recipe in Mealie with content:")
+        logger.info(json.dumps(json_file, indent=2))
         
 def upload_thumbnail(recipe_slug, thumbnail_filename):
     """
@@ -54,7 +57,7 @@ def upload_thumbnail(recipe_slug, thumbnail_filename):
     try:
         # Check if the file exists
         if not os.path.exists(thumbnail_filename):
-            print(f"Thumbnail file not found: {thumbnail_filename}")
+            logger.info(f"Thumbnail file not found: {thumbnail_filename}")
             return
         
         # Get file extension
@@ -78,12 +81,12 @@ def upload_thumbnail(recipe_slug, thumbnail_filename):
                 headers=headers
             )
             
-            print(f"Image upload response status: {response.status_code}")
-            print(f"Image upload response: {response.text}")
+            logger.info(f"Image upload response status: {response.status_code}")
+            logger.info(f"Image upload response: {response.text}")
             response.raise_for_status()
-            print(f"Successfully uploaded thumbnail for recipe {recipe_slug}")
+            logger.info(f"Successfully uploaded thumbnail for recipe {recipe_slug}")
             
     except Exception as e:
-        print(f"Failed to upload thumbnail: {e}")
-        print(f"Thumbnail path: {thumbnail_filename}")
-        print(f"Recipe slug: {recipe_slug}")
+        logger.info(f"Failed to upload thumbnail: {e}")
+        logger.info(f"Thumbnail path: {thumbnail_filename}")
+        logger.info(f"Recipe slug: {recipe_slug}")

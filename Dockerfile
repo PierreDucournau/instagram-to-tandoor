@@ -14,16 +14,16 @@ RUN apt-get update && apt-get install -y \
 # Install Firefox WebDriver
 
 # Comment / Uncomment the following line (for ARM architecture)
-# RUN wget -q -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux-aarch64.tar.gz \
-#     && tar -xzf /tmp/geckodriver.tar.gz -C /usr/local/bin/ \
-#     && rm /tmp/geckodriver.tar.gz \
-#     && chmod +x /usr/local/bin/geckodriver
-
-# Comment / Uncomment the following lines (for x86 architecture)
-RUN wget -q -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz \
+RUN wget -q -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux-aarch64.tar.gz \
     && tar -xzf /tmp/geckodriver.tar.gz -C /usr/local/bin/ \
     && rm /tmp/geckodriver.tar.gz \
     && chmod +x /usr/local/bin/geckodriver
+
+# Comment / Uncomment the following lines (for x86 architecture)
+# RUN wget -q -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz \
+#     && tar -xzf /tmp/geckodriver.tar.gz -C /usr/local/bin/ \
+#     && rm /tmp/geckodriver.tar.gz \
+#     && chmod +x /usr/local/bin/geckodriver
 
 # Insall dependencies
 COPY requirements.txt .
@@ -36,6 +36,8 @@ COPY . .
 # dont change the browser
 ENV BROWSER=docker
 ENV FLASK_APP=app.py
+ENV PYTHONUNBUFFERED=1
+ENV LOG_LEVEL=DEBUG
 
 EXPOSE 5000
 

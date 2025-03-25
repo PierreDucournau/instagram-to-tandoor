@@ -3,6 +3,9 @@ from scrapers.mealie.mealie_api import send_to_mealie
 from scrapers.mealie.duckai_mealie import prompt_chatgpt
 import json
 from datetime import datetime
+from logs import setup_logging
+
+logger = setup_logging("scrape_for_mealie")
 
 def scrape_recipe_for_mealie(url, platform):
     """
@@ -22,100 +25,105 @@ def scrape_recipe_for_mealie(url, platform):
         None
     """
     
-    caption, thumbnail_filename = get_caption_from_post(url, platform)
-    if caption:
-        json_parts = [
-            {
-                "@context": "https://schema.org",
-                "@type": "Recipe",
-                "author": "string",
-                "cookTime": "PT1H",
-                "prepTime": "PT15M",
-                "datePublished": "string",
-                "description": "",
-                "image": None,
-                "recipeYield": "",
-            },
-            {
-                "recipeIngredient": [
-                    "string",
-                ],
-            },
-            {
-                "interactionStatistic": 
-                    {
-                        "@type": "InteractionCounter",
-                        "interactionType": "https://schema.org/Comment",
-                        "userInteractionCount": "140"
-                    },
-            },
-            {
-                "name": "",
-            },
-            {
-                "nutrition": {
-                    "@type": "NutritionInformation",
-                    "calories": "string",
-                    "fatContent": "string"
-                },
-            },
-            {
-                "suitableForDiet": None
-            },
-            {
-                "recipeInstructions": "string",
-            }
-            ]
+    result = get_caption_from_post(url, platform)
+    if result == None:
+        raise Exception("No caption or image found")
     
-        full_json = {}
+    if result:
+        caption, thumbnail_filename = result
+        if caption:
+            json_parts = [
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Recipe",
+                    "author": "string",
+                    "cookTime": "PT1H",
+                    "prepTime": "PT15M",
+                    "datePublished": "string",
+                    "description": "",
+                    "image": None,
+                    "recipeYield": "",
+                },
+                {
+                    "recipeIngredient": [
+                        "string",
+                    ],
+                },
+                {
+                    "interactionStatistic": 
+                        {
+                            "@type": "InteractionCounter",
+                            "interactionType": "https://schema.org/Comment",
+                            "userInteractionCount": "140"
+                        },
+                },
+                {
+                    "name": "",
+                },
+                {
+                    "nutrition": {
+                        "@type": "NutritionInformation",
+                        "calories": "string",
+                        "fatContent": "string"
+                    },
+                },
+                {
+                    "suitableForDiet": None
+                },
+                {
+                    "recipeInstructions": "string",
+                }
+                ]
         
-        instructions_res = prompt_chatgpt(caption, json_parts[6], "instructions")
-        if instructions_res:
-            full_json.update(instructions_res)
+            full_json = {}
             
-        print(json.dumps(full_json, indent=2))
-        
-        info_res = prompt_chatgpt(caption, json_parts[0], "info")
-        if info_res:
-            full_json.update(info_res)
+            instructions_res = prompt_chatgpt(caption, json_parts[6], "instructions")
+            if instructions_res:
+                full_json.update(instructions_res)
                 
-        print(json.dumps(full_json, indent=2))
-        
-        ingredients_res = prompt_chatgpt(caption, json_parts[1], "ingredients")
-        if ingredients_res:
-            full_json.update(ingredients_res)
+            logger.info(json.dumps(full_json, indent=2))
             
-        print(json.dumps(full_json, indent=2))
-        
-        full_json.update(json_parts[2])
-        
-        name_res = prompt_chatgpt(caption, json_parts[3], "name")
-        if name_res:
-            full_json.update(name_res)
+            info_res = prompt_chatgpt(caption, json_parts[0], "info")
+            if info_res:
+                full_json.update(info_res)
+                    
+            logger.info(json.dumps(full_json, indent=2))
             
-        print(json.dumps(full_json, indent=2))
-        
-        nutrition_res = prompt_chatgpt(caption, json_parts[4], "nutrition")
-        if nutrition_res:
-            full_json.update(nutrition_res)
-            
-        print(json.dumps(full_json, indent=2))
-        
-        full_json.update(json_parts[5])
-            
-        print(json.dumps(full_json, indent=2))
+            ingredients_res = prompt_chatgpt(caption, json_parts[1], "ingredients")
+            if ingredients_res:
+                full_json.update(ingredients_res)
                 
-        full_json["datePublished"] = datetime.now().strftime("%Y-%m-%d")
-        
-        json_ld_script = f'<script type="application/ld+json">{json.dumps(full_json)}</script>'
-        
-        final_json = {
-            "includeTags": False,
-            "data": json_ld_script
-        }
-                        
-        print(json.dumps(final_json, indent=2))
-        with open('./scrapers/mealie/final_json.json', 'w') as outfile:
-            json.dump(final_json, outfile, indent=2)
+            logger.info(json.dumps(full_json, indent=2))
             
-        send_to_mealie(final_json, thumbnail_filename)
+            full_json.update(json_parts[2])
+            
+            name_res = prompt_chatgpt(caption, json_parts[3], "name")
+            if name_res:
+                full_json.update(name_res)
+                
+            logger.info(json.dumps(full_json, indent=2))
+            
+            nutrition_res = prompt_chatgpt(caption, json_parts[4], "nutrition")
+            if nutrition_res:
+                full_json.update(nutrition_res)
+                
+            logger.info(json.dumps(full_json, indent=2))
+            
+            full_json.update(json_parts[5])
+                
+            logger.info(json.dumps(full_json, indent=2))
+                    
+            full_json["datePublished"] = datetime.now().strftime("%Y-%m-%d")
+            
+            json_ld_script = f'<script type="application/ld+json">{json.dumps(full_json)}</script>'
+            
+            final_json = {
+                "includeTags": False,
+                "data": json_ld_script
+            }
+                            
+            logger.info(json.dumps(final_json, indent=2))
+            with open('./scrapers/mealie/final_json.json', 'w') as outfile:
+                json.dump(final_json, outfile, indent=2)
+                
+            send_to_mealie(final_json, thumbnail_filename)
