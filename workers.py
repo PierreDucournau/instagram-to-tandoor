@@ -1,12 +1,10 @@
-import time
 from datetime import datetime
 import traceback
-import os
-from flask import current_app
-from models import db, Job
-from scrapers.tandoor.scrape_for_tandoor import scrape_recipe_for_tandoor
-from scrapers.mealie.scrape_for_mealie import scrape_recipe_for_mealie
+
 from logs import setup_logging
+from models import db, Job
+from scrapers.scrape_for_mealie import scrape_recipe_for_mealie
+from scrapers.scrape_for_tandoor import scrape_recipe_for_tandoor
 
 logger = setup_logging("job_processor")
 
@@ -73,6 +71,19 @@ def process_scraping_job(job_id):
                 update_job_status(job_id, 'processing', 40, 'Processing for Mealie...')
                 logger.info(f"Processing for Mealie: {job.url}")
                 result = scrape_recipe_for_mealie(job.url, job.platform)
+                
+            # Check if result indicates an error
+            if isinstance(result, dict) and result.get('status') == 'error':
+                error_message = result.get('error', 'Unknown error')
+                logger.error(f"API error in job {job_id}: {error_message}")
+                update_job_status(
+                    job_id, 
+                    'failed', 
+                    0, 
+                    f'Error scraping recipe',
+                    result=str(result)
+                )
+                return
             
             update_job_status(job_id, 'processing', 80, 'Finishing up...')
             

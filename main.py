@@ -1,8 +1,8 @@
 import argparse
-from dotenv import load_dotenv
 import re
-from scrapers.mealie.scrape_for_mealie import scrape_recipe_for_mealie
-from scrapers.tandoor.scrape_for_tandoor import scrape_recipe_for_tandoor
+from dotenv import load_dotenv
+from scrapers.scrape_for_mealie import scrape_recipe_for_mealie
+from scrapers.scrape_for_tandoor import scrape_recipe_for_tandoor
 
 load_dotenv()
 

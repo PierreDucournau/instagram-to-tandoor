@@ -1,16 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 import threading
-from datetime import datetime
-import os
-import time
-import json
 import uuid
+from datetime import datetime
 
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
+from flask_migrate import Migrate
+
+import config
 from models import db, Job
 from workers import process_scraping_job
-import config
 
 app = Flask(__name__)
 app.config.from_object(config.Config)

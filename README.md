@@ -181,7 +181,7 @@ By using this application you accept [DuckDuckGo AI Chat ToS](https://duckduckgo
 - [x] Add TikTok support
 - [x] Dockerize the project
 - [x] Create a GUI
-- [ ] Optimize prompting
+- [x] Optimize prompting
 
 ## 📜 Credits
 

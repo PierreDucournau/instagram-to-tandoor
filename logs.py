@@ -1,6 +1,6 @@
 import logging
-import sys
 import os
+import sys
 
 def setup_logging(name="instagram-to-tandoor", level=None):
     """Configure logging for the application"""
