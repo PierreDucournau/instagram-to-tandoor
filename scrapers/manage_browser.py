@@ -29,11 +29,11 @@ def open_browser(url=None, platform=None):
             options.add_argument("--headless")
             browser = webdriver.Firefox(options=options) 
             logger.info("Using Firefox browser")
-        # case "chrome":
-        #     options = webdriver.ChromeOptions()
-        #     options.add_argument("--headless")
-        #     browser = webdriver.Chrome()
-        #     logger.info("Using Chrome browser")
+        case "chrome":
+            options = webdriver.ChromeOptions()
+            options.add_argument("--headless")
+            browser = webdriver.Chrome(options=options)
+            logger.info("Using Chrome browser")
         case "edge":
             options = webdriver.EdgeOptions()
             options.add_argument("--headless")
@@ -64,7 +64,6 @@ def open_browser(url=None, platform=None):
     
     # Handle platform-specific setup
     if platform == "instagram" or platform == "i":
-        
         try:
             logger.info("Waiting for Instagram overlay element to appear")
             WebDriverWait(browser, 10).until(
