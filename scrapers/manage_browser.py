@@ -26,26 +26,22 @@ def open_browser(url=None, platform=None):
     match os.getenv("BROWSER"):
         case "firefox":
             options = webdriver.FirefoxOptions()
-            if os.getenv("HEADLESS", "true").lower() == "true":
-                options.add_argument("--headless")
-            browser = webdriver.Firefox(options=options)
+            options.add_argument("--headless")
+            browser = webdriver.Firefox(options=options) 
             logger.info("Using Firefox browser")
         case "chrome":
             options = webdriver.ChromeOptions()
-            if os.getenv("HEADLESS", "true").lower() == "true":
-                options.add_argument("--headless")
+            options.add_argument("--headless")
             browser = webdriver.Chrome(options=options)
             logger.info("Using Chrome browser")
         case "edge":
             options = webdriver.EdgeOptions()
-            if os.getenv("HEADLESS", "true").lower() == "true":
-                options.add_argument("--headless")
+            options.add_argument("--headless")
             browser = webdriver.Edge(options=options)
             logger.info("Using Edge browser")
         case "safari":
             options = webdriver.SafariOptions()
-            if os.getenv("HEADLESS", "true").lower() == "true":
-                options.add_argument("--headless")
+            options.add_argument("--headless")
             browser = webdriver.Safari(options=options)
             logger.info("Using Safari browser")
         case "docker":
@@ -84,12 +80,12 @@ def open_browser(url=None, platform=None):
         try:
             logger.info("Navigating through Duck.ai welcome screens")
             start_button = WebDriverWait(browser, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[2]/div/button"))
+                EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div[2]/div/button"))
             )
             start_button.click()
             
             continue_button = WebDriverWait(browser, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div/div[3]/div/button"))
+                EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[6]/div[4]/div/div[2]/main/div/div[3]/div/button"))
             )
             continue_button.click()
         except Exception as e:

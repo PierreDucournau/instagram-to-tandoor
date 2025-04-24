@@ -95,7 +95,6 @@ def scrape_recipe_for_tandoor(url, platform):
             },
             {
                 "servings": 0,
-                "servings_text": "string"
             },
             {
                 "working_time": 0,
