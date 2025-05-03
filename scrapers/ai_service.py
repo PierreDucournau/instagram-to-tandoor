@@ -61,8 +61,13 @@ def send_raw_prompt(browser, prompt):
     
     try:
         # Wait for the textarea and enter the prompt
-        textarea = WebDriverWait(browser, 10).until(
+        textarea = WebDriverWait(browser, 15).until(
             EC.presence_of_element_located((By.XPATH, "//textarea[@name='user-prompt']"))
+        )
+        
+        # Wait for the textarea to be enabled
+        WebDriverWait(browser, 15).until(
+            EC.element_to_be_clickable((By.XPATH, "//textarea[@name='user-prompt']"))
         )
         
         # Clear any existing text
@@ -71,10 +76,14 @@ def send_raw_prompt(browser, prompt):
         # Enter the new prompt
         textarea.send_keys(prompt)
         textarea.send_keys(Keys.RETURN)
+
         
-        # Wait for the response to complete
-        WebDriverWait(browser, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and @disabled]")))
-        WebDriverWait(browser, 60).until_not(EC.presence_of_element_located((By.XPATH, "//button//rect[@width='10' and @height='10']")))
+        # Then wait for it to become enabled again (when generation is complete)
+        WebDriverWait(browser, 60).until(
+            EC.element_to_be_clickable((By.XPATH, "//textarea[@name='user-prompt']"))
+        )
+        
+        logger.info("Response generation completed")
         
         # Get the page source after the response is complete
         response = browser.page_source
@@ -149,31 +158,27 @@ def get_number_of_steps(browser, caption=None):
             # Parse the response to extract the step count
             soup = BeautifulSoup(response, 'html.parser')
             
-            # Find the most recent response
-            responses = soup.find_all('div', {'heading': 'GPT-4o mini'})
-            if responses:
+            # Find the response container
+            response_divs = soup.find_all('div', {'class': 'VrBPSncUavA1d7C9kAc5'})
+            if response_divs:
                 # Get the last (most recent) response
-                last_response = responses[-1]
-                response_div = last_response.find('div', {'class': 'VrBPSncUavA1d7C9kAc5'})
+                last_response_div = response_divs[-1]
+                paragraph = last_response_div.find('p')
                 
-                if response_div:
-                    paragraph = response_div.find('p')
-                    if paragraph:
-                        text = paragraph.get_text().strip()
-                        # Try to extract a number from the text
-                        numbers = re.findall(r'\d+', text)
-                        if numbers:
-                            number_of_steps = int(numbers[0])
-                            logger.info(f"Found {number_of_steps} steps in the recipe")
-                            return number_of_steps
-                        else:
-                            logger.warning(f"No number found in response: {text}")
+                if paragraph:
+                    text = paragraph.get_text().strip()
+                    # Try to extract a number from the text
+                    numbers = re.findall(r'\d+', text)
+                    if numbers:
+                        number_of_steps = int(numbers[0])
+                        logger.info(f"Found {number_of_steps} steps in the recipe")
+                        return number_of_steps
                     else:
-                        logger.warning("No paragraph found in response")
+                        logger.warning(f"No number found in response: {text}")
                 else:
-                    logger.warning("Response div not found")
+                    logger.warning("No paragraph found in response")
             else:
-                logger.warning("No GPT-4o mini heading found")
+                logger.warning("No response divs found")
         
         logger.warning("Could not determine number of steps")
         return None
