@@ -1,0 +1,19 @@
+{
+    // Python settings
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "none"
+    },
+    "python.analysis.extraPaths": [
+        "/src"
+    ],
+    "python.envFile": "/.venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.defaultInterpreterPath": "/.venv/bin/python",
+    // Test settings
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.cwd": "/tests",
+    "python.testing.pytestPath": "/.venv/bin/pytest",
+    "python.testing.autoTestDiscoverOnSaveEnabled": true
+}

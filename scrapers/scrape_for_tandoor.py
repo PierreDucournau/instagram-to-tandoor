@@ -1,7 +1,7 @@
 import json
 
 from logs import setup_logging
-from scrapers.ai_service import get_number_of_steps, initialize_chat, process_recipe_part
+from scrapers.ai_service_natif import get_number_of_steps, initialize_chat, process_recipe_part
 from scrapers.api_service import send_recipe
 from scrapers.manage_browser import close_browser, open_browser
 from scrapers.social_scraper import get_caption_from_post

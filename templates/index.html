@@ -8,6 +8,7 @@
       </div>
       <div class="card-body">
         <form action="{{ url_for('submit_job') }}" method="post">
+          
           <div class="mb-3">
             <label for="url" class="form-label">Post URL</label>
             <input
@@ -35,6 +36,7 @@
               <select class="form-select" id="target" name="target">
                 <option value="tandoor">Tandoor</option>
                 <option value="mealie">Mealie</option>
+                <option value="image">Image</option>
               </select>
             </div>
           </div>
